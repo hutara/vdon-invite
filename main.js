@@ -79,53 +79,6 @@ function popupMessage(e, message = "Copied to Clipboard") {
     event.preventDefault();
 }
 
-function toggleObfuscate(type="url") {
-    var url = getById(type);
-
-	
-    if (url.dataset.obfuscated == "true") {
-        url.dataset.obfuscated = "false";
-        url.href = url.dataset.raw;
-        url.innerText = url.href;
-		
-		if (url.dataset.beta == "true") {
-			url.href = betaURL(url);
-			url.innerText = url.href;
-		}
-		
-    } else {
-		
-		if (url.dataset.beta == "true") {
-			url.href = betaURL(url);
-			url.innerText = url.href;
-		}
-        url.dataset.obfuscated = "true";
-        url.href = obfuscateURL(url);
-        url.innerText = url.href;
-    }
-}
-function obfuscateURL(element) {
-    input = element.href;
-
-    if (input.startsWith("https://obs.ninja/")) {
-        input = input.replace('https://obs.ninja/', '');
-    } else if (input.startsWith("http://obs.ninja/")) {
-        input = input.replace('http://obs.ninja/', '');
-    } else if (input.startsWith("obs.ninja/")) {
-        input = input.replace('obs.ninja/', '');
-    }
-    
-    if (input.startsWith("https://live.remotevm.ir/")) {
-        input = input.replace('https://live.remotevm.ir/', 'live.remotevm.ir/');
-    } else if (input.startsWith("http://live.remotevm.ir/")) {
-        input = input.replace('http://live.remotevm.ir/', 'live.remotevm.ir/');
-    } 
-
-    var key = "OBSNINJAFORLIFE";
-    var encrypted = CryptoJS.AES.encrypt(input, key);
-    var output = "https://invite.cam/" + encrypted.toString();
-    return output;
-}
 function toggleBeta(type="url") {
     var url = getById(type);
 
@@ -139,10 +92,6 @@ function toggleBeta(type="url") {
         url.innerText = url.href;
     }
 	
-    if (url.dataset.obfuscated == "true") {
-        url.href = obfuscateURL(url);
-        url.innerText = url.href;
-    }  
 }
 function betaURL(element) {
     input = element.dataset.raw;;
@@ -714,21 +663,11 @@ function updateLink(input) {
         url.href = betaURL(url);
         url.innerText = url.href;
     }
-    
-    if (url.dataset.obfuscated == "true") {
-        url.href = obfuscateURL(url);
-        url.innerText = url.href;
-    }
 	
 	var url = getById("viewUrl");
 
     if (url.dataset.beta == "true") {
         url.href = betaURL(url);
-        url.innerText = url.href;
-    }
-    
-    if (url.dataset.obfuscated == "true") {
-        url.href = obfuscateURL(url);
         url.innerText = url.href;
     }
 
